@@ -1,8 +1,15 @@
 #!/usr/bin/env node
 import path from "node:path";
 import os from "node:os";
+import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
-import { copySkillDir, upsertJsonMcpServer, upsertTomlMcpServer, exists } from "./fs-helpers.js";
+import {
+  copySkillDir,
+  upsertJsonMcpServer,
+  upsertTomlMcpServer,
+  upsertMarkdownBlock,
+  exists,
+} from "./fs-helpers.js";
 import { runEnvironmentDoctor } from "./env-doctor.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -22,13 +29,13 @@ const flags = {
 
 const HOME = os.homedir();
 
-// Global skill directories, matching the paths every supported IDE reads
-// skills from (see SKILL.md "Skill File Storage Path").
+// Global skill directories, matching the paths every supported IDE reads.
+// Windsurf is handled separately via Rules because there is no confirmed
+// skills-directory mechanism to copy a full skill folder into.
 const SKILL_TARGETS = [
   { label: "Claude Code", dir: path.join(HOME, ".claude", "skills") },
   { label: "Codex", dir: path.join(HOME, ".codex", "skills") },
   { label: "Cursor", dir: path.join(HOME, ".cursor", "skills") },
-  { label: "Windsurf", dir: path.join(HOME, ".windsurf", "skills") },
 ];
 
 function mcpServerEntryJson() {
@@ -87,6 +94,63 @@ Usage:
 `);
 }
 
+async function buildWindsurfRulesContent() {
+  const raw = await readFile(path.join(SKILL_SRC, "SKILL.md"), "utf-8");
+  const body = raw.replace(/^---[\s\S]*?---\n/, "").trim();
+  return (
+    `# BOT Chain Skill (via @botchain/init-toolkit)\n\n` +
+    `Windsurf has no confirmed skills-directory mechanism, so this installer writes a\n` +
+    `condensed Rules block instead of copying a skill folder.\n\n` +
+    body
+  );
+}
+
+async function isProjectRoot(dir) {
+  return (await exists(path.join(dir, "package.json"))) || (await exists(path.join(dir, ".git")));
+}
+
+async function installWindsurfRules(dryRun) {
+  const results = [];
+  const rulesContent = await buildWindsurfRulesContent();
+  const globalRulesPath = path.join(HOME, ".codeium", "windsurf", "memories", "global_rules.md");
+
+  if (dryRun) {
+    results.push({ label: "Windsurf (best-effort global)", status: "dry-run", location: globalRulesPath });
+  } else {
+    try {
+      const { alreadyPresent } = await upsertMarkdownBlock(globalRulesPath, SKILL_NAME, rulesContent);
+      results.push({
+        label: "Windsurf (best-effort global)",
+        status: alreadyPresent ? "updated" : "added",
+        location: globalRulesPath,
+      });
+    } catch (err) {
+      results.push({ label: "Windsurf (best-effort global)", status: "skipped", error: err.message });
+    }
+  }
+
+  const cwd = process.cwd();
+  if (await isProjectRoot(cwd)) {
+    const projectRulesPath = path.join(cwd, ".windsurf", "rules", `${SKILL_NAME}.md`);
+    if (dryRun) {
+      results.push({ label: "Windsurf (project rules)", status: "dry-run", location: projectRulesPath });
+    } else {
+      try {
+        const { alreadyPresent } = await upsertMarkdownBlock(projectRulesPath, SKILL_NAME, rulesContent);
+        results.push({
+          label: "Windsurf (project rules)",
+          status: alreadyPresent ? "updated" : "added",
+          location: projectRulesPath,
+        });
+      } catch (err) {
+        results.push({ label: "Windsurf (project rules)", status: "skipped", error: err.message });
+      }
+    }
+  }
+
+  return results;
+}
+
 async function main() {
   if (flags.help) {
     printHelp();
@@ -109,6 +173,25 @@ async function main() {
     const dest = await copySkillDir(SKILL_SRC, target.dir, SKILL_NAME);
     console.log(`   ✓ ${target.label.padEnd(28)} ${dest}`);
   }
+
+  console.log(
+    "\n   Windsurf has no confirmed skills-directory mechanism, so it is handled\n" +
+      "   separately through Rules instead of a copied skill folder:"
+  );
+  const windsurfResults = await installWindsurfRules(flags.dryRun);
+  for (const r of windsurfResults) {
+    if (r.status === "dry-run") {
+      console.log(`   [dry-run] would write ${r.label} rules to ${r.location}`);
+    } else if (r.status === "skipped") {
+      console.log(`   ✗ ${r.label.padEnd(28)} skipped — ${r.error}`);
+    } else {
+      console.log(`   ${r.status === "updated" ? "↻ updated" : "✓ added  "} ${r.label.padEnd(28)} ${r.location}`);
+    }
+  }
+  console.log(
+    "   Manual fallback: Settings → Cascade → Rules. Use that path if Windsurf\n" +
+      "   does not pick up either automated Rules location."
+  );
 
   // 2. MCP server registration — Universal MCP Server layer
   if (!flags.skipMcp) {

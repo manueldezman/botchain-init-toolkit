@@ -1,6 +1,6 @@
 # BOT Chain Dev Docs — Feedback & Bug Reports
 
-Submitted against: `https://dev-docs.botchain.ai/docs/Developers/`
+Submitted against: [https://dev-docs.botchain.ai/docs/Developers/](https://dev-docs.botchain.ai/docs/Developers/)
 Prepared for: BOT Chain Builder Challenge — Documentation / PR track
 Date verified: 2026-07-08
 
@@ -21,11 +21,11 @@ URL slugs from what looks like a different chain's docs template ("CTC")
 that was never updated to "BOT"/"botchain" when this page was created.
 
 **Steps to reproduce:**
-1. Visit `https://dev-docs.botchain.ai/docs/Developers/node-types/`
+1. Visit [https://dev-docs.botchain.ai/docs/Developers/node-types/](https://dev-docs.botchain.ai/docs/Developers/node-types/)
 2. Note the sidebar/navigation links to:
    - `claim-test-tctc-tokens`
    - `ctc-chain-node-configuration-best-practices`
-3. Visit `https://dev-docs.botchain.ai/docs/Developers/claim-test-tctc-tokens/`
+3. Visit [https://dev-docs.botchain.ai/docs/Developers/claim-test-tctc-tokens/](https://dev-docs.botchain.ai/docs/Developers/claim-test-tctc-tokens/)
    directly — the page does not exist; the site falls back to a bare shell
    with no content.
 
@@ -34,11 +34,11 @@ Node Types page sees at least one dead link. Confusing for new developers
 trying to navigate the docs sequentially.
 
 **Screenshots / logs / links / transaction hash:**
-- Broken link source: `https://dev-docs.botchain.ai/docs/Developers/node-types/`
-- Confirmed 404 target: `https://dev-docs.botchain.ai/docs/Developers/claim-test-tctc-tokens/`
-- Correct target should be: `https://dev-docs.botchain.ai/docs/Developers/claim-test-tbot-tokens/`
+- Broken link source: [https://dev-docs.botchain.ai/docs/Developers/node-types/](https://dev-docs.botchain.ai/docs/Developers/node-types/)
+- Confirmed 404 target: [https://dev-docs.botchain.ai/docs/Developers/claim-test-tctc-tokens/](https://dev-docs.botchain.ai/docs/Developers/claim-test-tctc-tokens/)
+- Correct target should be: [https://dev-docs.botchain.ai/docs/Developers/claim-test-tbot-tokens/](https://dev-docs.botchain.ai/docs/Developers/claim-test-tbot-tokens/)
 - Correct target for the second broken link should be:
-  `https://dev-docs.botchain.ai/docs/Developers/bot-chain-node-configuration-best-practices/`
+  [https://dev-docs.botchain.ai/docs/Developers/bot-chain-node-configuration-best-practices/](https://dev-docs.botchain.ai/docs/Developers/bot-chain-node-configuration-best-practices/)
 
 **Proposed solution:** Update the two navigation links on the Node Types
 page from `claim-test-tctc-tokens` → `claim-test-tbot-tokens` and
@@ -63,7 +63,7 @@ contains an internal editorial note that was never replaced with the
 actual link it's asking for.
 
 **Steps to reproduce:**
-1. Visit `https://dev-docs.botchain.ai/docs/Developers/bot-chain-node-configuration-best-practices/`
+1. Visit [https://dev-docs.botchain.ai/docs/Developers/bot-chain-node-configuration-best-practices/](https://dev-docs.botchain.ai/docs/Developers/bot-chain-node-configuration-best-practices/)
 2. Find the Archive Node section
 3. Read: *"Detailed instructions are available at BOT Chain GitHub
    repository.（An external link to our repository is required here.）"*
@@ -73,7 +73,7 @@ that undermines trust in the docs and leaves node operators without the
 "detailed instructions" the sentence promises.
 
 **Screenshots / logs / links / transaction hash:**
-- Source: `https://dev-docs.botchain.ai/docs/Developers/bot-chain-node-configuration-best-practices/`, Archive Node section.
+- Source: [https://dev-docs.botchain.ai/docs/Developers/bot-chain-node-configuration-best-practices/](https://dev-docs.botchain.ai/docs/Developers/bot-chain-node-configuration-best-practices/), Archive Node section.
 
 **Proposed solution:** Replace the placeholder parenthetical with the real
 link to the relevant GitHub repository/instructions.
@@ -96,7 +96,7 @@ sentence, i.e. the note-to-self was published instead of the actual
 current number.
 
 **Steps to reproduce:**
-1. Visit `https://dev-docs.botchain.ai/docs/Developers/node-types/`
+1. Visit [https://dev-docs.botchain.ai/docs/Developers/node-types/](https://dev-docs.botchain.ai/docs/Developers/node-types/)
 2. Find the Prune State section
 3. Read: *"...previously it was 1.5TB, which is an experimental value, the
    latest number needs to be updated"*
@@ -105,7 +105,7 @@ current number.
 node are working from a number the docs themselves say is wrong/stale.
 
 **Screenshots / logs / links / transaction hash:**
-- Source: `https://dev-docs.botchain.ai/docs/Developers/node-types/`, Prune State section.
+- Source: [https://dev-docs.botchain.ai/docs/Developers/node-types/](https://dev-docs.botchain.ai/docs/Developers/node-types/), Prune State section.
 
 **Proposed solution:** Replace with a current, verified disk-size figure
 for a pruned node, or remove the specific number until one is confirmed.
@@ -128,7 +128,7 @@ on the public mainnet endpoints and to use a third-party endpoint
 third-party RPC provider is named anywhere else in the docs.
 
 **Steps to reproduce:**
-1. Visit `https://dev-docs.botchain.ai/docs/Developers/json-rpc-endpoint/`
+1. Visit [https://dev-docs.botchain.ai/docs/Developers/json-rpc-endpoint/](https://dev-docs.botchain.ai/docs/Developers/json-rpc-endpoint/)
 2. Find: *"`eth_getLogs` is disabled on below Mainnet endpoints. Please use
    3(rd) party endpoints from **here**."*
 3. Attempt to click "here" — it does not navigate anywhere.
@@ -137,7 +137,7 @@ third-party RPC provider is named anywhere else in the docs.
 mainnet hits a documented dead end with no actual path forward.
 
 **Screenshots / logs / links / transaction hash:**
-- Source: `https://dev-docs.botchain.ai/docs/Developers/json-rpc-endpoint/`
+- Source: [https://dev-docs.botchain.ai/docs/Developers/json-rpc-endpoint/](https://dev-docs.botchain.ai/docs/Developers/json-rpc-endpoint/)
 
 **Proposed solution:** Either link "here" to an actual list of supported
 third-party RPC providers, or replace the sentence with concrete guidance
@@ -160,7 +160,7 @@ information on other BOT Chain–specific APIs, followed only by a single
 generic sentence and nothing else.
 
 **Steps to reproduce:**
-1. Visit `https://dev-docs.botchain.ai/docs/Developers/json-rpc-endpoint/`
+1. Visit [https://dev-docs.botchain.ai/docs/Developers/json-rpc-endpoint/](https://dev-docs.botchain.ai/docs/Developers/json-rpc-endpoint/)
 2. Scroll to the bottom
 3. Read: *"#### Other BOT Chain API — BOT Chain implements some other
    APIs"* — followed by no further content.
@@ -170,7 +170,7 @@ BOT-Chain-specific RPC methods (e.g. paymaster methods documented
 elsewhere are not cross-linked from here).
 
 **Screenshots / logs / links / transaction hash:**
-- Source: `https://dev-docs.botchain.ai/docs/Developers/json-rpc-endpoint/`, final section.
+- Source: [https://dev-docs.botchain.ai/docs/Developers/json-rpc-endpoint/](https://dev-docs.botchain.ai/docs/Developers/json-rpc-endpoint/), final section.
 
 **Proposed solution:** Either fill in the section with the actual list of
 BOT-Chain-specific methods (at minimum, cross-link the EOA Paymaster page's
@@ -196,7 +196,7 @@ copy/typo error that would break an integration built by following the
 workflow steps literally.
 
 **Steps to reproduce:**
-1. Visit `https://dev-docs.botchain.ai/docs/Developers/eoa-paymaster/`
+1. Visit [https://dev-docs.botchain.ai/docs/Developers/eoa-paymaster/](https://dev-docs.botchain.ai/docs/Developers/eoa-paymaster/)
 2. Compare the "API Spec" section (method: `pm_isSponsorable`) against the
    "Wallet Integration" → "Interaction Workflow" section, step 1
    (method referenced: `gm_sponsorable`)
@@ -207,7 +207,7 @@ non-existent RPC method and get a confusing error instead of a clear
 "method not found."
 
 **Screenshots / logs / links / transaction hash:**
-- Source: `https://dev-docs.botchain.ai/docs/Developers/eoa-paymaster/`, both sections named above.
+- Source: [https://dev-docs.botchain.ai/docs/Developers/eoa-paymaster/](https://dev-docs.botchain.ai/docs/Developers/eoa-paymaster/), both sections named above.
 
 **Proposed solution:** Change `gm_sponsorable` to `pm_isSponsorable` in the
 Interaction Workflow step so it matches the API Spec section.
@@ -231,7 +231,7 @@ different values in the same object. As written, it cannot be copy-pasted
 and parsed as JSON.
 
 **Steps to reproduce:**
-1. Visit `https://dev-docs.botchain.ai/docs/Developers/eoa-paymaster/`
+1. Visit [https://dev-docs.botchain.ai/docs/Developers/eoa-paymaster/](https://dev-docs.botchain.ai/docs/Developers/eoa-paymaster/)
 2. Find the `pm_isSponsorable` example request body
 3. Copy it into any JSON parser / `JSON.parse()` — it fails, and manual
    inspection shows `"value"` appearing twice (`"0xa1"` and `"0x1b4"`).
@@ -241,7 +241,7 @@ Chain's flagship gasless-transaction feature; a broken example undermines
 the one section of the docs meant to showcase a differentiated feature.
 
 **Screenshots / logs / links / transaction hash:**
-- Source: `https://dev-docs.botchain.ai/docs/Developers/eoa-paymaster/`, `pm_isSponsorable` example block.
+- Source: [https://dev-docs.botchain.ai/docs/Developers/eoa-paymaster/](https://dev-docs.botchain.ai/docs/Developers/eoa-paymaster/), `pm_isSponsorable` example block.
 
 **Proposed solution:** Rewrite the example as valid JSON with a single
 `value` field and a proper (or removed) comment, e.g.:

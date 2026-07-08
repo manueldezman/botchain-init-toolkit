@@ -75,3 +75,30 @@ export async function upsertTomlMcpServer(configPath, serverName, tomlBlock) {
   await writeFile(configPath, content, "utf-8");
   return { configPath, alreadyPresent };
 }
+
+export async function upsertMarkdownBlock(filePath, blockName, blockContent) {
+  await mkdir(path.dirname(filePath), { recursive: true });
+
+  let content = "";
+  if (await exists(filePath)) {
+    content = await readFile(filePath, "utf-8");
+  }
+
+  const startMarker = `<!-- ${blockName}:start -->`;
+  const endMarker = `<!-- ${blockName}:end -->`;
+  const block = `${startMarker}\n${blockContent.trimEnd()}\n${endMarker}`;
+  const blockRegex = new RegExp(
+    `${startMarker.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}[\\s\\S]*?${endMarker.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`,
+    "m"
+  );
+
+  const alreadyPresent = content.includes(startMarker) && content.includes(endMarker);
+  if (alreadyPresent) {
+    content = content.replace(blockRegex, block);
+  } else {
+    content = content.trimEnd() + (content.trim() ? "\n\n" : "") + block + "\n";
+  }
+
+  await writeFile(filePath, content, "utf-8");
+  return { filePath, alreadyPresent };
+}

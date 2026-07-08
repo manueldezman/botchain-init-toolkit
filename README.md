@@ -14,10 +14,17 @@ into specialized BOT Chain engineering agents. Installs:
 npx github:manueldezman/botchain-init-toolkit --global
 ```
 
-This copies the skill into `~/.claude/skills/`, `~/.codex/skills/`,
-`~/.cursor/skills/`, and `~/.windsurf/skills/`, and registers the MCP server
-in each tool's config (Claude Desktop/Code, Cursor, Windsurf configs as JSON;
-Codex's `config.toml`).
+This copies the skill into `~/.claude/skills/`, `~/.codex/skills/`, and
+`~/.cursor/skills/`, and registers the MCP server in each tool's config
+(Claude Desktop/Code, Cursor, Windsurf configs as JSON; Codex's
+`config.toml`).
+
+Windsurf is handled differently. Instead of copying a skill folder into an
+unverified `~/.windsurf/skills/` path, the installer writes a condensed
+Rules block to Windsurf's best-effort global rules location and, when run
+inside a project, also writes `.windsurf/rules/botchain-skill-engine.md`.
+The installer always prints the manual fallback path: Settings → Cascade →
+Rules.
 
 Other flags:
 
@@ -36,7 +43,8 @@ for the PR/Bug/Optimization submission track. Fill in the contact/wallet
 placeholders before submitting.
 
 This toolkit's own reference docs (`skills/botchain-skill-engine/references/`)
-are written defensively around those gaps — e.g. `rpc-endpoints.md`.
+are written defensively around those gaps — e.g. `rpc-endpoints.md` and
+`migration.md`.
 ## After installing
 
 The installer writes blank values for the network env vars. Before using any
@@ -46,7 +54,7 @@ installer added to your tool's config:
 ```
 BOTCHAIN_RPC_URL=...
 BOTCHAIN_CHAIN_ID=...
-BOTCHAIN_EXPLORER_API=https://explorer.botchain.org/api
+BOTCHAIN_EXPLORER_API=https://scan.bohr.life
 BOTCHAIN_PRIVATE_KEY=...      # testnet-only dev key. Never a mainnet key.
 ```
 

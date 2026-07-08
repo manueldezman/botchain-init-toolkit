@@ -33,6 +33,8 @@ Don't load every reference up front. Load only what the current task needs:
    `references/gas-estimation.md` first.
 4. **Need an endpoint, chain ID, or explorer URL?** Read
    `references/rpc-endpoints.md`.
+5. **Migrating an existing project?** Read
+   `references/migration.md` before touching any config or deploy script.
 
 ## Standard operating loop
 
@@ -42,11 +44,13 @@ STATE 1  Load only the reference file(s) this task needs (see above).
 STATE 2  Call check_environment_health via the MCP server.
 STATE 3  If a required tool (forge/hardhat) is missing, ask the user for
          approval before installing anything. Never install silently.
-STATE 4  Call execute_terminal_cmd / deploy_contract / send_transaction /
+STATE 4  If this is a migration task, detect the project's existing tool,
+         read its config, propose a minimal diff, and wait for approval.
+STATE 5  Call execute_terminal_cmd / deploy_contract / send_transaction /
          batch_transfer as appropriate. Always use the MCP tools for
          chain interaction — never hand-roll RPC calls in generated code
          unless the user explicitly asks for a standalone script.
-STATE 5  Call fetch_explorer_state or check_transaction_status to confirm
+STATE 6  Call fetch_explorer_state or check_transaction_status to confirm
          the result, and report the verified address/hash back to the user.
 ```
 
@@ -77,6 +81,11 @@ to confirm the server is reachable.
   the user's explicit go-ahead in the current conversation.
 - Never fabricate a transaction hash, contract address, or balance. If a
   tool call fails or the server is unreachable, say so — do not guess.
+- Never overwrite a whole project config file during migration. Read the
+  existing file, propose a minimal diff, and get approval before editing.
+- When migrating a project, reuse the project's existing deploy script or
+  deploy command after the BOT Chain config change unless the user asks
+  for a new deployment flow.
 - If scaffolding an "agent identity" style contract from
   `references/boundary-rules.md`, tell the user explicitly that this is a
   proposed pattern from this toolkit, not a native BOT Chain feature —

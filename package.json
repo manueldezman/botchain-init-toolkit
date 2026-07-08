@@ -1,7 +1,7 @@
 {
   "name": "@botchain/init-toolkit",
   "version": "1.0.0",
-  "description": "Single-command bootstrap that turns Claude Code, Codex, Cursor, and Windsurf into BOT Chain engineering agents — installs a progressive skill directory and a local MCP server for terminal, compiler, and explorer access.",
+  "description": "Single-command bootstrap that turns Claude Code, Codex, Cursor, and Windsurf into BOT Chain engineering agents \u2014 installs a progressive skill directory and a local MCP server for terminal, compiler, and explorer access.",
   "type": "module",
   "bin": {
     "botchain-init-toolkit": "./bin/install.js"
@@ -12,9 +12,23 @@
     "mcp-server",
     "README.md"
   ],
-  "keywords": ["botchain", "mcp", "skills", "claude-code", "codex", "cursor", "windsurf", "web3", "evm"],
+  "keywords": [
+    "botchain",
+    "mcp",
+    "skills",
+    "claude-code",
+    "codex",
+    "cursor",
+    "windsurf",
+    "web3",
+    "evm"
+  ],
   "license": "MIT-0",
   "engines": {
     "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manueldezman/botchain-init-toolkit.git"
   }
 }

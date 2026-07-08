@@ -11,7 +11,7 @@ into specialized BOT Chain engineering agents. Installs:
 ## Install
 
 ```bash
-npx @botchain/init-toolkit --global
+npx github:manueldezman/botchain-init-toolkit --global
 ```
 
 This copies the skill into `~/.claude/skills/`, `~/.codex/skills/`,
@@ -22,8 +22,8 @@ Codex's `config.toml`).
 Other flags:
 
 ```bash
-npx @botchain/init-toolkit --dry-run     # show what would happen, write nothing
-npx @botchain/init-toolkit --skip-mcp    # install skill files only
+npx github:manueldezman/botchain-init-toolkit --dry-run     # show what would happen, write nothing
+npx github:manueldezman/botchain-init-toolkit --skip-mcp    # install skill files only
 ```
 
 ## Documentation gaps found in BOT Chain's official docs

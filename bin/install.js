@@ -80,10 +80,10 @@ function printHelp() {
 @botchain/init-toolkit
 
 Usage:
-  npx @botchain/init-toolkit --global     Install skill + MCP server for all supported IDEs
-  npx @botchain/init-toolkit --dry-run    Show what would happen without writing anything
-  npx @botchain/init-toolkit --skip-mcp   Install the skill files only, skip MCP registration
-  npx @botchain/init-toolkit --help       Show this message
+  npx github:manueldezman/botchain-init-toolkit --global     Install skill + MCP server for all supported IDEs
+  npx github:manueldezman/botchain-init-toolkit --dry-run    Show what would happen without writing anything
+  npx github:manueldezman/botchain-init-toolkit --skip-mcp   Install the skill files only, skip MCP registration
+  npx github:manueldezman/botchain-init-toolkit --help       Show this message
 `);
 }
 

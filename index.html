@@ -239,7 +239,7 @@
         <button class="pkg-tab" data-pkg="bun">bun</button>
       </div>
       <div class="cmdline">
-        <span id="cmd-text">npx @botchain/init-toolkit --global</span>
+        <span id="cmd-text">npx github:manueldezman/botchain-init-toolkit --global</span>
         <button class="copybtn" id="copy-btn">Copy</button>
       </div>
       <p class="install-note">Installs the skill directory to ~/.claude/skills/, ~/.codex/skills/, ~/.cursor/skills/, and ~/.windsurf/skills/, plus a local MCP server for terminal &amp; explorer access.</p>
@@ -591,9 +591,9 @@ Run `skills list` to view available skills</div>
 
   // install command package manager tabs
   const commands = {
-    npx: 'npx @botchain/init-toolkit --global',
-    pnpm: 'pnpm dlx @botchain/init-toolkit --global',
-    bun: 'bunx @botchain/init-toolkit --global'
+    npx: 'npx github:manueldezman/botchain-init-toolkit --global',
+    pnpm: 'pnpm dlx github:manueldezman/botchain-init-toolkit --global',
+    bun: 'bunx github:manueldezman/botchain-init-toolkit --global'
   };
   document.querySelectorAll('.pkg-tab').forEach(btn=>{
     btn.addEventListener('click',()=>{

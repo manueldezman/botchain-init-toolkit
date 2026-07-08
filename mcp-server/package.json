@@ -1,0 +1,21 @@
+{
+  "name": "botchain-mcp-server",
+  "version": "1.0.0",
+  "description": "Local MCP server exposing BOT Chain terminal, compiler, and explorer tools to any MCP-compatible coding agent.",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "botchain-mcp-server": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test/smoke-test.js"
+  },
+  "license": "MIT-0",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "dotenv": "^17.4.2",
+    "ethers": "^6.17.0",
+    "zod": "^4.4.3"
+  }
+}

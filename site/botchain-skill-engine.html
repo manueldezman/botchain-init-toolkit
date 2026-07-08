@@ -239,10 +239,10 @@
         <button class="pkg-tab" data-pkg="bun">bun</button>
       </div>
       <div class="cmdline">
-        <span id="cmd-text">npx @botchain/init-toolkit --global</span>
+        <span id="cmd-text">npx github:manueldezman/botchain-init-toolkit --global</span>
         <button class="copybtn" id="copy-btn">Copy</button>
       </div>
-      <p class="install-note">Installs the skill directory to ~/.claude/skills/, ~/.codex/skills/, ~/.cursor/skills/, and ~/.windsurf/skills/, plus a local MCP server for terminal &amp; explorer access.</p>
+      <p class="install-note">Installs skill files for Claude Code, Codex, and Cursor, writes Windsurf Rules output, and registers a local MCP server for terminal &amp; explorer access.</p>
     </div>
   </div>
 </header>
@@ -340,10 +340,14 @@
     <div class="subhead"><span class="num">1</span><h3>Skill File Storage Path</h3></div>
     <div class="guide-grid">
       <div class="guide-card">
-        <div class="guide-head"><div class="ic">◆</div><div><strong>Claude Code / Codex</strong><small>Global skills directory</small></div></div>
-        <div class="codeline">~/.claude/skills/
-~/.codex/skills/</div>
-        <p class="desc">Both tools load skills from global and project-level directories. Each skill is a self-contained .md file with YAML frontmatter.</p>
+        <div class="guide-head"><div class="ic">◆</div><div><strong>Claude Code</strong><small>Global skills directory</small></div></div>
+        <div class="codeline">~/.claude/skills/</div>
+        <p class="desc">Claude Code loads global and project-level skills from its skills directory.</p>
+      </div>
+      <div class="guide-card">
+        <div class="guide-head"><div class="ic">◆</div><div><strong>Codex</strong><small>Global skills directory</small></div></div>
+        <div class="codeline">~/.codex/skills/</div>
+        <p class="desc">Codex loads global skills from its skills directory and picks them up on a new session.</p>
       </div>
       <div class="guide-card">
         <div class="guide-head"><div class="ic">◆</div><div><strong>Cursor</strong><small>Global skills directory</small></div></div>
@@ -351,9 +355,10 @@
         <p class="desc">Cursor reads skill definitions from its skills directory. Project-level skills override global ones with the same name.</p>
       </div>
       <div class="guide-card">
-        <div class="guide-head"><div class="ic">◆</div><div><strong>Windsurf</strong><small>Global skills directory</small></div></div>
-        <div class="codeline">~/.windsurf/skills/</div>
-        <p class="desc">Windsurf mirrors the same progressive-disclosure layout, keeping references/ and assets/ loaded only on demand.</p>
+        <div class="guide-head"><div class="ic">◆</div><div><strong>Windsurf</strong><small>Rules output</small></div></div>
+        <div class="codeline">~/.codeium/windsurf/memories/global_rules.md
+.windsurf/rules/botchain-skill-engine.md</div>
+        <p class="desc">Windsurf is configured through Rules output instead of a global skills directory. The project-level Rules file is written only when the installer runs inside a real project.</p>
       </div>
     </div>
 
@@ -372,10 +377,17 @@ Type /skills to list available skills</div>
         <p class="desc">Codex loads skills on session start. A successful install appears in the available skills list on a new session.</p>
       </div>
       <div class="guide-card">
-        <div class="guide-head"><div class="ic">▸</div><div><strong>Cursor / Windsurf</strong><small>List installed</small></div></div>
-        <div class="codeline"># List all installed skills
+        <div class="guide-head"><div class="ic">▸</div><div><strong>Cursor</strong><small>Check loaded skills</small></div></div>
+        <div class="codeline"># Verify in Cursor session
 Run `skills list` to view available skills</div>
-        <p class="desc">If the skill appears in the list with a green checkmark, it's successfully installed and ready to use.</p>
+        <p class="desc">If the BOT Chain skill appears in Cursor's installed skills list, the installation was picked up correctly.</p>
+      </div>
+      <div class="guide-card">
+        <div class="guide-head"><div class="ic">▸</div><div><strong>Windsurf</strong><small>Check Rules output</small></div></div>
+        <div class="codeline"># Verify Windsurf Rules output
+ls ~/.codeium/windsurf/memories/global_rules.md
+ls .windsurf/rules/botchain-skill-engine.md</div>
+        <p class="desc">Windsurf uses Rules output instead of a skills route. If the files are present but the tool does not pick them up, use the manual fallback in Settings → Cascade → Rules.</p>
       </div>
     </div>
 
@@ -591,9 +603,9 @@ Run `skills list` to view available skills</div>
 
   // install command package manager tabs
   const commands = {
-    npx: 'npx @botchain/init-toolkit --global',
-    pnpm: 'pnpm dlx @botchain/init-toolkit --global',
-    bun: 'bunx @botchain/init-toolkit --global'
+    npx: 'npx github:manueldezman/botchain-init-toolkit --global',
+    pnpm: 'pnpm dlx github:manueldezman/botchain-init-toolkit --global',
+    bun: 'bunx github:manueldezman/botchain-init-toolkit --global'
   };
   document.querySelectorAll('.pkg-tab').forEach(btn=>{
     btn.addEventListener('click',()=>{

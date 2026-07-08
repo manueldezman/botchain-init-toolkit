@@ -5,10 +5,7 @@ Prepared for: BOT Chain Builder Challenge — Documentation / PR track
 Date verified: 2026-07-08
 
 All items below were found by direct inspection of the live docs site and
-verified by fetching the exact URL quoted in each report. Fill in the
-`[ ]` placeholders (name, contact, wallet address) before submitting —
-those are per-submission and not something I can fill in for you.
-
+verified by fetching the exact URL quoted in each report.
 ---
 
 ## Submission 1 — Broken internal navigation links on "Node Types" page

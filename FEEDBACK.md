@@ -5,7 +5,13 @@ Prepared for: BOT Chain Builder Challenge — Documentation / PR track
 Date verified: 2026-07-08
 
 All items below were found by direct inspection of the live docs site and
-verified by fetching the exact URL quoted in each report. 
+verified by fetching the exact URL quoted in each report.
+
+**Contact info and wallet address:**
+- X: https://x.com/0xDezman
+- Email: adelekeabdulganiy@gmail.com
+- Wallet: `0xc41508a14009d0896432e733f8e0D470dbb31968`
+
 ---
 
 ## Submission 1 — Broken internal navigation links on "Node Types" page
@@ -45,8 +51,6 @@ page from `claim-test-tctc-tokens` → `claim-test-tbot-tokens` and
 **PR or doc/tool improvement link (if any):** None yet — happy to open a PR
 against the docs repo once repo access/location is confirmed.
 
-**Contact info and wallet address:** [ name / email or Discord handle ] · [ wallet address ]
-
 ---
 
 ## Submission 2 — Unfilled editorial placeholder on Node Configuration page
@@ -77,8 +81,6 @@ link to the relevant GitHub repository/instructions.
 
 **PR or doc/tool improvement link (if any):** None yet.
 
-**Contact info and wallet address:** [ name / email or Discord handle ] · [ wallet address ]
-
 ---
 
 ## Submission 3 — Stale/placeholder disk size figure on Node Types page
@@ -108,8 +110,6 @@ node are working from a number the docs themselves say is wrong/stale.
 for a pruned node, or remove the specific number until one is confirmed.
 
 **PR or doc/tool improvement link (if any):** None yet.
-
-**Contact info and wallet address:** [ name / email or Discord handle ] · [ wallet address ]
 
 ---
 
@@ -143,8 +143,6 @@ node to serve logs).
 
 **PR or doc/tool improvement link (if any):** None yet.
 
-**Contact info and wallet address:** [ name / email or Discord handle ] · [ wallet address ]
-
 ---
 
 ## Submission 5 — Empty "Other BOT Chain API" section
@@ -174,8 +172,6 @@ BOT-Chain-specific methods (at minimum, cross-link the EOA Paymaster page's
 `pm_isSponsorable` method), or remove the stub header until content exists.
 
 **PR or doc/tool improvement link (if any):** None yet.
-
-**Contact info and wallet address:** [ name / email or Discord handle ] · [ wallet address ]
 
 ---
 
@@ -210,8 +206,6 @@ non-existent RPC method and get a confusing error instead of a clear
 Interaction Workflow step so it matches the API Spec section.
 
 **PR or doc/tool improvement link (if any):** None yet.
-
-**Contact info and wallet address:** [ name / email or Discord handle ] · [ wallet address ]
 
 ---
 
@@ -254,8 +248,6 @@ the one section of the docs meant to showcase a differentiated feature.
 
 **PR or doc/tool improvement link (if any):** None yet.
 
-**Contact info and wallet address:** [ name / email or Discord handle ] · [ wallet address ]
-
 ---
 
 ## Submission 8 — Contradictory faucet instructions across two pages
@@ -293,8 +285,6 @@ the actual Discord invite link and describe the textbox/UI it refers to
 
 **PR or doc/tool improvement link (if any):** None yet.
 
-**Contact info and wallet address:** [ name / email or Discord handle ] · [ wallet address ]
-
 ---
 
 ## Submission 9 — "B DEX" linked under two different domains
@@ -327,8 +317,6 @@ all references to match (redirecting the other if both must keep working).
 
 **PR or doc/tool improvement link (if any):** None yet.
 
-**Contact info and wallet address:** [ name / email or Discord handle ] · [ wallet address ]
-
 ---
 
 ## Submission 10 — CLI flag typo in prose vs. code block
@@ -357,8 +345,6 @@ flag in the code block, but it's a clear typo worth a one-line fix.
 **Proposed solution:** Fix the prose spelling to `--pruneancient`.
 
 **PR or doc/tool improvement link (if any):** None yet.
-
-**Contact info and wallet address:** [ name / email or Discord handle ] · [ wallet address ]
 
 ---
 
@@ -390,8 +376,6 @@ is intentionally identical across both networks; correct if not.
 
 **PR or doc/tool improvement link (if any):** None yet.
 
-**Contact info and wallet address:** [ name / email or Discord handle ] · [ wallet address ]
-
 ---
 
 ## Summary table
@@ -410,6 +394,7 @@ is intentionally identical across both networks; correct if not.
 | 10 | node-types | Typo | Low |
 | 11 | quick-guide | Data to confirm | Low |
 
-**Before submitting:** fill in the `[ ]` contact/wallet placeholders in
-each section above — I don't have that information to include on your
-behalf.
+**Contact info and wallet address:**
+- X: https://x.com/0xDezman
+- Email: adelekeabdulganiy@gmail.com
+- Wallet: `0xc41508a14009d0896432e733f8e0D470dbb31968`

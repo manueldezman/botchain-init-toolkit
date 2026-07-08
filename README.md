@@ -19,6 +19,8 @@ This copies the skill into `~/.claude/skills/`, `~/.codex/skills/`,
 in each tool's config (Claude Desktop/Code, Cursor, Windsurf configs as JSON;
 Codex's `config.toml`).
 
+After Installation, your terminal should look similar to this: <br/> <img width="2560" height="1440" alt="image" src="https://github.com/user-attachments/assets/9be0e12f-9e52-4122-bac4-3bbaebe05bcc" />
+
 Other flags:
 
 ```bash
@@ -26,17 +28,7 @@ npx @botchain/init-toolkit --dry-run     # show what would happen, write nothing
 npx @botchain/init-toolkit --skip-mcp    # install skill files only
 ```
 
-## Documentation gaps found in BOT Chain's official docs
 
-While building this, I audited `dev-docs.botchain.ai` directly and found
-several real issues (broken links, a wrong RPC method name on the
-paymaster page, an invalid JSON example, contradictory faucet
-instructions, and more) — see `FEEDBACK.md` for the full list, formatted
-for the PR/Bug/Optimization submission track. Fill in the contact/wallet
-placeholders before submitting.
-
-This toolkit's own reference docs (`skills/botchain-skill-engine/references/`)
-are written defensively around those gaps — e.g. `rpc-endpoints.md`.
 ## After installing
 
 The installer writes blank values for the network env vars. Before using any

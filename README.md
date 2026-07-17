@@ -5,7 +5,7 @@ into specialized BOT Chain engineering agents. Installs:
 
 1. **A progressive skill directory** (`skills/botchain-skill-engine/`) into
    every supported IDE's global skills folder.
-2. **A local MCP server** (`mcp-server/`) exposing 10 tools for environment
+2. **A local MCP server** (`mcp-server/`) exposing 11 tools for environment
    checks, contract compilation/deployment, transfers, and explorer lookups.
 
 ## Install
@@ -39,8 +39,7 @@ While building this, I audited `dev-docs.botchain.ai` directly and found
 several real issues (broken links, a wrong RPC method name on the
 paymaster page, an invalid JSON example, contradictory faucet
 instructions, and more) — see `FEEDBACK.md` for the full list, formatted
-for the PR/Bug/Optimization submission track. Fill in the contact/wallet
-placeholders before submitting.
+for the PR/Bug/Optimization submission track.
 
 This toolkit's own reference docs (`skills/botchain-skill-engine/references/`)
 are written defensively around those gaps — e.g. `rpc-endpoints.md` and
@@ -68,7 +67,7 @@ Restart your IDE/agent so it picks up the new skill and MCP server, then try:
 ```
 bin/            the npx installer (bin/install.js)
 skills/         the SKILL.md + references/ + assets/ loaded by each IDE
-mcp-server/     the MCP server (10 tools, see mcp-server/README.md)
+mcp-server/     the MCP server (11 tools, see mcp-server/README.md)
 ```
 
 See `mcp-server/README.md` for the tool list and how to run/test the server

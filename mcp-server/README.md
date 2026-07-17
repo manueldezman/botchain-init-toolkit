@@ -19,7 +19,7 @@ npm test
 ```
 
 Runs `test/smoke-test.js`, which spawns the server as a real MCP client would,
-lists all 10 tools, and calls a couple of them to confirm clean error
+lists all 11 tools, and calls a couple of them to confirm clean error
 messages when no RPC is configured.
 
 ## Tools

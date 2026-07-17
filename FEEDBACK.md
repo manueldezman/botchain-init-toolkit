@@ -348,36 +348,6 @@ flag in the code block, but it's a clear typo worth a one-line fix.
 
 ---
 
-## Submission 11 — Identical total supply figure listed for testnet and mainnet
-
-**Issue title:** Quick Guide lists "Total Supply: 150 Million" identically
-for both BOT Chain Testnet and Mainnet
-
-**Description:**
-The network info tables for testnet and mainnet on the Quick Guide page
-show the exact same "Total Supply: 150 Million" figure. This may be
-intentional (testnet mirrors mainnet supply) or may be a copy-paste
-artifact from creating one table from the other — worth confirming with
-the team rather than assuming either way.
-
-**Steps to reproduce:**
-1. Visit `https://dev-docs.botchain.ai/docs/Developers/quick-guide/`
-2. Compare the "Total Supply" field in the Testnet info table against the
-   Mainnet info table.
-
-**Scope of impact:** Low — informational only, but worth a sanity check
-since it's the kind of number people quote elsewhere.
-
-**Screenshots / logs / links / transaction hash:**
-- Source: `https://dev-docs.botchain.ai/docs/Developers/quick-guide/`
-
-**Proposed solution:** Confirm with the BOT Chain team whether this figure
-is intentionally identical across both networks; correct if not.
-
-**PR or doc/tool improvement link (if any):** None yet.
-
----
-
 ## Summary table
 
 | # | Page | Type | Severity |
@@ -392,7 +362,6 @@ is intentionally identical across both networks; correct if not.
 | 8 | quick-guide / claim-test-tbot-tokens | Contradictory instructions | Medium |
 | 9 | quick-guide / site footer | Inconsistent domain | Low-medium |
 | 10 | node-types | Typo | Low |
-| 11 | quick-guide | Data to confirm | Low |
 
 **Contact info and wallet address:**
 - X: https://x.com/0xDezman

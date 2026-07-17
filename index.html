@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>BOT Chain Skill Engine</title>
+<meta name="description" content="Install the BOT Chain Skill Engine for Claude Code, Codex, Cursor, and Windsurf." />
+<meta name="theme-color" content="#000000" />
+<title>BOT Chain Skill Engine | Build And Deploy From Your Coding Agent</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -26,6 +28,15 @@
   html,body{margin:0;padding:0;background:var(--neutral);color:var(--on-surface);font-family:'Inter',sans-serif;scroll-behavior:smooth;}
   a{color:inherit;text-decoration:none;}
   img,svg{display:block;}
+  button,input{font:inherit;}
+
+  :where(a,button,input,summary):focus-visible{
+    outline:3px solid var(--primary);outline-offset:3px;
+  }
+  .sr-only{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+    clip:rect(0,0,0,0);white-space:nowrap;border:0;
+  }
 
   ::selection{background:var(--glow);}
 
@@ -99,10 +110,15 @@
     display:flex;align-items:center;justify-content:space-between;background:#000;border:1px solid var(--border);
     border-radius:12px;padding:15px 16px;font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--primary-50);gap:12px;
   }
-  .cmdline span{overflow-x:auto;white-space:nowrap;}
+  .cmdline code{overflow-x:auto;white-space:nowrap;line-height:1.55;}
   .copybtn{background:none;border:1px solid var(--border);border-radius:8px;color:var(--muted);padding:6px 8px;cursor:pointer;flex-shrink:0;font-size:12px;font-family:'Inter';}
   .copybtn:hover{color:var(--primary);border-color:var(--primary);}
   .install-note{color:var(--muted);font-size:12.5px;margin-top:12px;font-family:'Inter';}
+  .network-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+  .network-chip{
+    border:1px solid #2f554c;background:#0a1815;color:var(--primary-70);border-radius:9999px;
+    padding:6px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;
+  }
 
   /* SECTION shell */
   section{padding:var(--sec-pad,90px) 0;}
@@ -193,7 +209,7 @@
     font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.8;color:var(--muted);white-space:pre-wrap;padding-top:16px;
   }
   .reasoning-body .trace .k{color:var(--primary-50);}
-  .reasoning-body .trace .cmt{color:var(--tertiary);}
+  .reasoning-body .trace .cmt{color:#737373;}
 
   /* footer */
   footer{border-top:1px solid var(--border);padding:80px 0 40px;}
@@ -208,10 +224,11 @@
   .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1fr;gap:32px;border-top:1px solid var(--border);padding-top:48px;}
   @media (max-width:900px){.foot-grid{grid-template-columns:1fr 1fr;}}
   .foot-brand .brand{margin-bottom:16px;}
-  .subscribe{display:flex;background:var(--surface);border:1px solid var(--border);border-radius:9999px;padding:6px 6px 6px 18px;max-width:280px;}
-  .subscribe input{background:none;border:none;color:var(--on-surface);font-size:13px;font-family:'Inter';flex:1;outline:none;}
-  .subscribe input::placeholder{color:var(--muted);}
-  .subscribe button{background:var(--primary);color:#000;border:none;border-radius:9999px;padding:9px 16px;font-family:'Alexandria';font-size:13px;cursor:pointer;}
+  .footer-network{
+    display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);border-radius:9999px;
+    padding:9px 13px;color:var(--secondary);font-family:'JetBrains Mono',monospace;font-size:11px;
+  }
+  .footer-network::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--primary);box-shadow:0 0 8px var(--glow);}
   .foot-col h5{font-family:'Alexandria';font-size:13px;color:var(--muted);margin:0 0 16px;text-transform:uppercase;letter-spacing:1px;}
   .foot-col a{display:block;color:var(--secondary);font-size:13.5px;margin-bottom:12px;}
   .foot-col a:hover{color:var(--primary);}
@@ -228,7 +245,7 @@
     .install-card{padding:18px;border-radius:16px;min-width:0;}
     .pkgtabs{gap:0;justify-content:space-between;}
     .cmdline{align-items:stretch;flex-direction:column;font-size:12px;}
-    .cmdline span{padding-bottom:3px;}
+    .cmdline code{padding-bottom:3px;white-space:normal;overflow-wrap:anywhere;}
     .copybtn{align-self:flex-end;}
     section{padding:64px 0;}
     h2.headline{font-size:30px;}
@@ -254,8 +271,11 @@
     .social-row{display:grid;grid-template-columns:1fr;}
     .social-row a{justify-content:center;}
     .foot-grid{grid-template-columns:1fr;gap:34px;}
-    .subscribe{max-width:none;width:100%;}
-    .subscribe input{min-width:0;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    html,body{scroll-behavior:auto;}
+    *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}
   }
 </style>
 </head>
@@ -263,13 +283,13 @@
 
 <nav class="topbar">
   <div class="navrow">
-    <div class="brand"><span class="dot"></span>BOT&nbsp;CHAIN</div>
+    <a class="brand" href="#about" aria-label="BOT Chain Skill Engine home"><span class="dot"></span>BOT&nbsp;CHAIN</a>
     <div class="navlinks">
       <a href="#about">Explore</a>
       <a href="#guidance">Learn</a>
       <a href="#examples">Build</a>
     </div>
-    <a class="navcta" href="https://t.me/BotChain_official/61" target="_blank" rel="noopener noreferrer">Build on BOTchain ↗</a>
+    <a class="navcta" href="https://t.me/BotChain_official/61" target="_blank" rel="noopener noreferrer">Build on BOT Chain ↗</a>
     <button class="menubtn" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-menu">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
@@ -277,11 +297,12 @@
       <a href="#about">Explore</a>
       <a href="#guidance">Learn</a>
       <a href="#examples">Build</a>
-      <a href="https://t.me/BotChain_official/61" target="_blank" rel="noopener noreferrer">Build on BOTchain</a>
+      <a href="https://t.me/BotChain_official/61" target="_blank" rel="noopener noreferrer">Build on BOT Chain</a>
     </div>
   </div>
 </nav>
 
+<main>
 <header class="hero wrap">
   <span class="badge"><span class="pulse"></span> One toolkit. Full agent power.</span>
   <div class="hero-grid">
@@ -289,33 +310,39 @@
       <h1 class="display">BOT Chain<br><span class="accent">Skill Engine</span></h1>
       <p class="sub">A single-command toolkit that turns Claude Code, Codex, Cursor, and Windsurf into specialized BOT Chain engineering agents — scaffold, compile, deploy, and verify without leaving the prompt.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="https://github.com/manueldezman/botchain-init-toolkit/archive/refs/heads/main.zip">Download zip ↗</a>
-        <a class="btn btn-secondary" href="#examples">See usage examples</a>
+        <button class="btn btn-primary" id="hero-copy" type="button">Copy install command</button>
+        <a class="btn btn-secondary" href="https://github.com/manueldezman/botchain-init-toolkit" target="_blank" rel="noopener noreferrer">View source ↗</a>
       </div>
     </div>
     <div class="install-card" id="install">
-      <div class="pkgtabs">
-        <button class="pkg-tab active" data-pkg="npx">npx</button>
-        <button class="pkg-tab" data-pkg="pnpm">pnpm</button>
-        <button class="pkg-tab" data-pkg="bun">bun</button>
+      <div class="pkgtabs" aria-label="Choose package runner">
+        <button class="pkg-tab active" type="button" data-pkg="npx" aria-pressed="true">npx</button>
+        <button class="pkg-tab" type="button" data-pkg="pnpm" aria-pressed="false">pnpm</button>
+        <button class="pkg-tab" type="button" data-pkg="bun" aria-pressed="false">bun</button>
       </div>
       <div class="cmdline">
-        <span id="cmd-text">npx github:manueldezman/botchain-init-toolkit --global</span>
-        <button class="copybtn" id="copy-btn">Copy</button>
+        <code id="cmd-text">npx github:manueldezman/botchain-init-toolkit --global</code>
+        <button class="copybtn" id="copy-btn" type="button">Copy</button>
       </div>
+      <span class="sr-only" id="copy-status" aria-live="polite"></span>
       <p class="install-note">Installs skill files for Claude Code, Codex, and Cursor, writes Windsurf Rules output, and registers a local MCP server for terminal &amp; explorer access.</p>
+      <div class="network-row" aria-label="Default network details">
+        <span class="network-chip">BOT Chain testnet</span>
+        <span class="network-chip">Chain ID 968</span>
+        <span class="network-chip">tBOT</span>
+      </div>
     </div>
   </div>
 </header>
 
 <section class="wrap">
-  <div class="maintabs">
-    <button class="main-tab active" data-tab="about">About Skill</button>
-    <button class="main-tab" data-tab="guidance">Skill Guidance</button>
+  <div class="maintabs" role="tablist" aria-label="Toolkit information">
+    <button class="main-tab active" id="tab-about" type="button" role="tab" aria-selected="true" aria-controls="about" tabindex="0" data-tab="about">About Skill</button>
+    <button class="main-tab" id="tab-guidance" type="button" role="tab" aria-selected="false" aria-controls="guidance" tabindex="-1" data-tab="guidance">Skill Guidance</button>
   </div>
 
   <!-- ABOUT SKILL -->
-  <div class="tabpanel active" id="about" data-panel="about">
+  <div class="tabpanel active" id="about" role="tabpanel" aria-labelledby="tab-about" data-panel="about">
     <div class="intro-grid">
       <svg class="isometric" viewBox="0 0 300 260" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="var(--muted)">
         <g stroke-width="1.2">
@@ -344,7 +371,7 @@
     </div>
 
     <h2 class="headline">Capabilities</h2>
-    <p class="lead">Nine bundled capabilities cover the path from "write a contract" to "verified on explorer," across every supported IDE.</p>
+    <p class="lead">Nine bundled capabilities cover the path from "write a contract" to "confirmed on explorer," across every supported IDE.</p>
 
     <div class="cap-grid">
       <div class="cap-card">
@@ -380,23 +407,23 @@
       <div class="cap-card">
         <svg class="cap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>
         <h3>Explorer Fetcher</h3>
-        <p>Queries the block explorer API for confirmation status and prints a verified contract link inside the chat.</p>
+        <p>Checks transaction confirmation status and returns the matching BOT Chain explorer link inside the chat.</p>
       </div>
       <div class="cap-card">
         <svg class="cap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-        <h3>Identity Registry Templates</h3>
-        <p>Ships native AI Agent Identity primitives: wallet handle, blueprint DID, and boundary policy field limits.</p>
+        <h3>Agent Identity Template</h3>
+        <p>Ships an optional identity-contract pattern for wallets, blueprint references, and boundary policies. It is a toolkit convention, not a native chain feature.</p>
       </div>
       <div class="cap-card">
         <svg class="cap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-        <h3>Model-Agnostic Bridge</h3>
-        <p>Routes inference through a litellm bridge so any endpoint can be swapped in via a local .env layout.</p>
+        <h3>Gasless Eligibility Check</h3>
+        <p>Checks BOT Chain paymaster sponsorship through the network's pm_isSponsorable RPC method before a transaction is sent.</p>
       </div>
     </div>
   </div>
 
   <!-- SKILL GUIDANCE -->
-  <div class="tabpanel" id="guidance" data-panel="guidance">
+  <div class="tabpanel" id="guidance" role="tabpanel" aria-labelledby="tab-guidance" hidden data-panel="guidance">
 
     <div class="subhead"><span class="num">1</span><h3>Skill File Storage Path</h3></div>
     <div class="guide-grid">
@@ -469,18 +496,18 @@ ls .windsurf/rules/botchain-skill-engine.md</div>
       <div class="step-card">
         <span class="step-tag">STEP C</span>
         <h4>Skill Executes &amp; Verifies</h4>
-        <p>The skill compiles, signs, deploys to testnet, then pings the explorer API for a verified address.</p>
-        <div class="step-snippet"><span class="who">Agent:</span> Deployed. Verified at explorer.botchain.org/0x91a...4f2</div>
+        <p>After approval, the skill compiles, signs, deploys to testnet, then checks the transaction confirmation.</p>
+        <div class="step-snippet"><span class="who">Agent:</span> Confirmed on BOT Chain testnet. View the transaction at scan.bohr.life.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- USAGE EXAMPLES -->
+<!-- WORKFLOW EXAMPLES -->
 <section class="wrap" id="examples">
-  <span class="eyebrow">Reasoning traces</span>
-  <h2 class="headline">Usage Examples</h2>
-  <p class="lead">Each prompt below expands into the agent's actual execution trace — the same reasoning steps it runs when a skill fires for real.</p>
+  <span class="eyebrow">Workflow previews</span>
+  <h2 class="headline">From Prompt To Result</h2>
+  <p class="lead">Expand an example to see the tools, safety checks, and result you can expect from the BOT Chain skill.</p>
 
   <div class="reasoning-list" id="reasoning-list">
 
@@ -490,16 +517,15 @@ ls .windsurf/rules/botchain-skill-engine.md</div>
         <span class="dot"></span>
         <span class="idx">01</span>
         <span class="title">Query Balance</span>
-        <span class="meta">Thought for 2s</span>
+        <span class="meta">Read only</span>
       </summary>
       <div class="reasoning-body">
-        <div class="trace"><span class="cmt"># Query the USDC balance for address {addr}</span>
-<span class="k">1.</span> Match intent → skill: <span class="k">botchain-balance</span>
-<span class="k">2.</span> Load reference → rpc-endpoints.md (BOT Chain testnet RPC)
-<span class="k">3.</span> Call check_environment_health() → RPC reachable
-<span class="k">4.</span> Query USDC balance for {addr} on Pharos {network_display_en}
-<span class="k">5.</span> Format result to human-readable balance
-<span class="cmt"># → returns balance in chat, no gas spent</span></div>
+        <div class="trace"><span class="cmt"># Prompt: Check the tBOT balance for 0xAbc...123</span>
+<span class="k">1.</span> Select BOT Chain testnet (chain ID 968)
+<span class="k">2.</span> Confirm https://rpc.bohr.life is reachable
+<span class="k">3.</span> Call check_balance for the supplied wallet
+<span class="k">4.</span> Return the balance in tBOT
+<span class="cmt"># Result: balance shown in chat; no transaction or gas required</span></div>
       </div>
     </details>
 
@@ -509,15 +535,15 @@ ls .windsurf/rules/botchain-skill-engine.md</div>
         <span class="dot"></span>
         <span class="idx">02</span>
         <span class="title">Send Native Transfer</span>
-        <span class="meta">Thought for 3s</span>
+        <span class="meta">Approval required</span>
       </summary>
       <div class="reasoning-body">
-        <div class="trace"><span class="cmt"># Send 0.0001 {native_token} to {to_addr}</span>
-<span class="k">1.</span> Match intent → skill: <span class="k">botchain-transfer</span>
-<span class="k">2.</span> Pre-flight: check_environment_health() → wallet key loaded
-<span class="k">3.</span> Build + sign transaction locally via MCP execute_terminal_cmd
-<span class="k">4.</span> Broadcast to Pharos {network_display_en}
-<span class="k">5.</span> Poll for confirmation, return tx hash + status</div>
+        <div class="trace"><span class="cmt"># Prompt: Send 0.0001 tBOT to 0xDef...456</span>
+<span class="k">1.</span> Validate the recipient, amount, network, and wallet balance
+<span class="k">2.</span> Estimate gas and show the transaction summary
+<span class="k">3.</span> Ask for explicit approval before signing
+<span class="k">4.</span> Broadcast to BOT Chain testnet after approval
+<span class="k">5.</span> Return the transaction hash and scan.bohr.life link</div>
       </div>
     </details>
 
@@ -527,17 +553,16 @@ ls .windsurf/rules/botchain-skill-engine.md</div>
         <span class="dot"></span>
         <span class="idx">03</span>
         <span class="title">Deploy Contract</span>
-        <span class="meta">Thought for 6s</span>
+        <span class="meta">Approval required</span>
       </summary>
       <div class="reasoning-body">
-        <div class="trace"><span class="cmt"># Deploy a simple storage contract, store/retrieve uint256</span>
-<span class="k">1.</span> Match intent → skill: <span class="k">botchain-deploy</span>
-<span class="k">2.</span> Copy boilerplate from assets/contract-template.sol
-<span class="k">3.</span> check_environment_health() → forge missing
-<span class="k">4.</span> Prompt user: "Foundry is missing. Install it?" → approved
-<span class="k">5.</span> Run foundryup, restore pipeline
-<span class="k">6.</span> execute_terminal_cmd("forge create --rpc-url ...")
-<span class="k">7.</span> fetch_explorer_state(tx_hash) → verified address returned</div>
+        <div class="trace"><span class="cmt"># Prompt: Deploy a simple storage contract to BOT Chain testnet</span>
+<span class="k">1.</span> Scaffold the Solidity contract from the toolkit template
+<span class="k">2.</span> Check Foundry or Hardhat availability and compile locally
+<span class="k">3.</span> Show the network and estimated deployment cost
+<span class="k">4.</span> Ask for explicit approval before deployment
+<span class="k">5.</span> Deploy to chain ID 968 and wait for confirmation
+<span class="k">6.</span> Return the contract address, transaction hash, and explorer link</div>
       </div>
     </details>
 
@@ -547,15 +572,15 @@ ls .windsurf/rules/botchain-skill-engine.md</div>
         <span class="dot"></span>
         <span class="idx">04</span>
         <span class="title">Batch Airdrop</span>
-        <span class="meta">Thought for 4s</span>
+        <span class="meta">Approval required</span>
       </summary>
       <div class="reasoning-body">
-        <div class="trace"><span class="cmt"># Airdrop 1 USDC each to 3 addresses</span>
-<span class="k">1.</span> Match intent → skill: <span class="k">botchain-batch-transfer</span>
-<span class="k">2.</span> Resolve token contract {token_addr}, decimals: 6
-<span class="k">3.</span> Estimate gas per recipient via gas-estimation reference
-<span class="k">4.</span> Loop: sign + broadcast transfer() per address
-<span class="k">5.</span> Aggregate tx hashes, return batch summary</div>
+        <div class="trace"><span class="cmt"># Prompt: Send 1 tBOT to each address in this three-wallet list</span>
+<span class="k">1.</span> Validate every address and calculate the total amount
+<span class="k">2.</span> Estimate gas for the complete batch
+<span class="k">3.</span> Show the recipient count and total cost for approval
+<span class="k">4.</span> Send each transfer after approval
+<span class="k">5.</span> Return a per-recipient transaction summary</div>
       </div>
     </details>
 
@@ -564,15 +589,16 @@ ls .windsurf/rules/botchain-skill-engine.md</div>
         <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
         <span class="dot"></span>
         <span class="idx">05</span>
-        <span class="title">Contract Read — Total Supply</span>
-        <span class="meta">Thought for 2s</span>
+        <span class="title">Contract Read - Total Supply</span>
+        <span class="meta">Read only</span>
       </summary>
       <div class="reasoning-body">
-        <div class="trace"><span class="cmt"># Call totalSupply() on USDC contract</span>
-<span class="k">1.</span> Match intent → skill: <span class="k">botchain-read-contract</span>
-<span class="k">2.</span> Load ABI fragment for totalSupply()
-<span class="k">3.</span> eth_call (read-only, no signature required)
-<span class="k">4.</span> Format result in human-readable units</div>
+        <div class="trace"><span class="cmt"># Prompt: Call totalSupply() on this BOT Chain token contract</span>
+<span class="k">1.</span> Validate the supplied contract address and ABI fragment
+<span class="k">2.</span> Call totalSupply() with eth_call
+<span class="k">3.</span> Read decimals() when available
+<span class="k">4.</span> Format the result in human-readable units
+<span class="cmt"># Result: contract state returned without a signature or gas</span></div>
       </div>
     </details>
 
@@ -582,14 +608,14 @@ ls .windsurf/rules/botchain-skill-engine.md</div>
         <span class="dot"></span>
         <span class="idx">06</span>
         <span class="title">Gas Estimation</span>
-        <span class="meta">Thought for 3s</span>
+        <span class="meta">Read only</span>
       </summary>
       <div class="reasoning-body">
-        <div class="trace"><span class="cmt"># Estimate gas for transfer(address,uint256), 100 USDC</span>
-<span class="k">1.</span> Match intent → skill: <span class="k">botchain-gas-estimate</span>
-<span class="k">2.</span> Simulate call via eth_estimateGas
-<span class="k">3.</span> Cross-check against current base fee
-<span class="k">4.</span> Return estimated cost + failure-risk flag</div>
+        <div class="trace"><span class="cmt"># Prompt: Estimate gas for this token transfer</span>
+<span class="k">1.</span> Validate the sender, recipient, contract, and amount
+<span class="k">2.</span> Simulate the call with eth_estimateGas
+<span class="k">3.</span> Read the current gas price
+<span class="k">4.</span> Return the estimated tBOT cost and any simulation failure</div>
       </div>
     </details>
 
@@ -599,19 +625,20 @@ ls .windsurf/rules/botchain-skill-engine.md</div>
         <span class="dot"></span>
         <span class="idx">07</span>
         <span class="title">Check Transaction Status</span>
-        <span class="meta">Thought for 2s</span>
+        <span class="meta">Read only</span>
       </summary>
       <div class="reasoning-body">
-        <div class="trace"><span class="cmt"># Query status of transaction {tx_hash}</span>
-<span class="k">1.</span> Match intent → skill: <span class="k">botchain-tx-status</span>
-<span class="k">2.</span> fetch_explorer_state(tx_hash)
-<span class="k">3.</span> Parse status, from, to, value, gas used
-<span class="k">4.</span> Present transaction details inline</div>
+        <div class="trace"><span class="cmt"># Prompt: Check this BOT Chain testnet transaction hash</span>
+<span class="k">1.</span> Validate the transaction hash
+<span class="k">2.</span> Query the receipt on BOT Chain testnet
+<span class="k">3.</span> Parse confirmation status, block, sender, recipient, and gas used
+<span class="k">4.</span> Present the details with a scan.bohr.life link</div>
       </div>
     </details>
 
   </div>
 </section>
+</main>
 
 <footer>
   <div class="wrap">
@@ -628,7 +655,7 @@ ls .windsurf/rules/botchain-skill-engine.md</div>
       <div class="foot-brand">
         <div class="brand"><span class="dot"></span>BOT&nbsp;CHAIN</div>
         <p style="color:var(--muted);font-size:13px;line-height:1.6;max-width:220px;margin-bottom:18px;">One skill powering the next generation of on-chain agents.</p>
-        <div class="subscribe"><input type="email" placeholder="Your email"><button>Subscribe</button></div>
+        <span class="footer-network">Testnet · Chain ID 968</span>
       </div>
       <div class="foot-col">
         <h5>Build</h5>
@@ -639,7 +666,7 @@ ls .windsurf/rules/botchain-skill-engine.md</div>
       <div class="foot-col">
         <h5>Explore</h5>
         <a href="https://faucet.botchain.ai/basic" target="_blank" rel="noopener noreferrer">Testnet Faucet</a>
-        <a href="https://scan.botchain.ai/" target="_blank" rel="noopener noreferrer">Block Explorer</a>
+        <a href="https://scan.bohr.life/" target="_blank" rel="noopener noreferrer">Testnet Explorer</a>
         <a href="https://bridge.botchain.ai/" target="_blank" rel="noopener noreferrer">Bridge</a>
       </div>
       <div class="foot-col">
@@ -662,6 +689,7 @@ ls .windsurf/rules/botchain-skill-engine.md</div>
 <script>
   const menuButton = document.querySelector('.menubtn');
   const mobileMenu = document.getElementById('mobile-menu');
+  document.querySelectorAll('.isometric,.cap-icon,.chev').forEach(icon=>icon.setAttribute('aria-hidden','true'));
   const closeMobileMenu = () => {
     mobileMenu.classList.remove('open');
     menuButton.setAttribute('aria-expanded', 'false');
@@ -674,16 +702,59 @@ ls .windsurf/rules/botchain-skill-engine.md</div>
   });
   mobileMenu.querySelectorAll('a').forEach(link=>link.addEventListener('click',closeMobileMenu));
   window.addEventListener('resize',()=>{ if(window.innerWidth > 820) closeMobileMenu(); });
+  document.addEventListener('keydown',(event)=>{
+    if(event.key === 'Escape' && mobileMenu.classList.contains('open')){
+      closeMobileMenu();
+      menuButton.focus();
+    }
+  });
 
-  // main tabs (About Skill / Skill Guidance)
-  document.querySelectorAll('.main-tab').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      document.querySelectorAll('.main-tab').forEach(b=>b.classList.remove('active'));
-      document.querySelectorAll('.tabpanel').forEach(p=>p.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelector(`[data-panel="${btn.dataset.tab}"]`).classList.add('active');
+  // Keep tabs, nav links, and deep links in sync.
+  const mainTabs = [...document.querySelectorAll('.main-tab')];
+  const tabPanels = [...document.querySelectorAll('.tabpanel')];
+  const activateTab = (name,{focus=false,updateHash=false}={})=>{
+    const activeButton = mainTabs.find(button=>button.dataset.tab === name);
+    const activePanel = tabPanels.find(panel=>panel.dataset.panel === name);
+    if(!activeButton || !activePanel) return;
+
+    mainTabs.forEach(button=>{
+      const isActive = button === activeButton;
+      button.classList.toggle('active',isActive);
+      button.setAttribute('aria-selected',String(isActive));
+      button.tabIndex = isActive ? 0 : -1;
+    });
+    tabPanels.forEach(panel=>{
+      const isActive = panel === activePanel;
+      panel.classList.toggle('active',isActive);
+      panel.hidden = !isActive;
+    });
+    if(updateHash) history.pushState(null,'',`#${name}`);
+    if(focus) activeButton.focus();
+  };
+
+  mainTabs.forEach((button,index)=>{
+    button.addEventListener('click',()=>activateTab(button.dataset.tab,{updateHash:true}));
+    button.addEventListener('keydown',(event)=>{
+      const keys = ['ArrowLeft','ArrowRight','Home','End'];
+      if(!keys.includes(event.key)) return;
+      event.preventDefault();
+      let nextIndex = index;
+      if(event.key === 'ArrowLeft') nextIndex = (index - 1 + mainTabs.length) % mainTabs.length;
+      if(event.key === 'ArrowRight') nextIndex = (index + 1) % mainTabs.length;
+      if(event.key === 'Home') nextIndex = 0;
+      if(event.key === 'End') nextIndex = mainTabs.length - 1;
+      activateTab(mainTabs[nextIndex].dataset.tab,{focus:true,updateHash:true});
     });
   });
+  document.querySelectorAll('a[href="#about"],a[href="#guidance"]').forEach(link=>{
+    link.addEventListener('click',()=>activateTab(link.hash.slice(1)));
+  });
+  const activateTabFromHash = ()=>{
+    const name = window.location.hash.slice(1);
+    if(name === 'about' || name === 'guidance') activateTab(name);
+  };
+  window.addEventListener('hashchange',activateTabFromHash);
+  activateTabFromHash();
 
   // install command package manager tabs
   const commands = {
@@ -693,18 +764,38 @@ ls .windsurf/rules/botchain-skill-engine.md</div>
   };
   document.querySelectorAll('.pkg-tab').forEach(btn=>{
     btn.addEventListener('click',()=>{
-      document.querySelectorAll('.pkg-tab').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.pkg-tab').forEach(b=>{
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed','false');
+      });
       btn.classList.add('active');
+      btn.setAttribute('aria-pressed','true');
       document.getElementById('cmd-text').textContent = commands[btn.dataset.pkg];
     });
   });
-  document.getElementById('copy-btn').addEventListener('click',(e)=>{
-    navigator.clipboard.writeText(document.getElementById('cmd-text').textContent).catch(()=>{});
-    e.target.textContent = 'Copied';
-    setTimeout(()=>e.target.textContent='Copy',1400);
-  });
 
-  // reasoning traces: only one open at a time, like an accordion of AI reasoning blocks
+  const commandText = document.getElementById('cmd-text');
+  const copyStatus = document.getElementById('copy-status');
+  const copyCommand = async trigger=>{
+    const defaultLabel = trigger.textContent;
+    try{
+      await navigator.clipboard.writeText(commandText.textContent);
+      trigger.textContent = 'Copied';
+      copyStatus.textContent = 'Install command copied to clipboard.';
+    }catch{
+      const range = document.createRange();
+      range.selectNodeContents(commandText);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      trigger.textContent = 'Press Ctrl+C';
+      copyStatus.textContent = 'Clipboard access failed. The command is selected; press Control+C to copy it.';
+    }
+    setTimeout(()=>{ trigger.textContent=defaultLabel; },1800);
+  };
+  document.getElementById('copy-btn').addEventListener('click',event=>copyCommand(event.currentTarget));
+  document.getElementById('hero-copy').addEventListener('click',event=>copyCommand(event.currentTarget));
+
+  // Workflow previews behave as a single-open accordion.
   const items = document.querySelectorAll('#reasoning-list details');
   items.forEach(d=>{
     d.addEventListener('toggle',()=>{
